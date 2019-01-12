@@ -63,14 +63,12 @@ def calc_temps_start(start):
     print("Server received request for '<start>' page...")
     return f"{start_result}"
 
-#@app.route("/temp/<start>/<end>")
-#def calc_temps(start, end):
-#    start_date=start
-#    end_date=end    
-#    print("Server received request for '<start>/<end>' page...")
-#    start_end_result=session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
-#        filter(Measurement.date >= start_date).filter(Measurement.date <= end_date).all()
-#    return f"{start_end_result}"
+@app.route("/temp/<start>/<end>")
+def calc_temps(start, end):    
+    print("Server received request for '<start>/<end>' page...")
+    start_end_result=session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+    return f"{start_end_result}"
 
 if __name__ == "__main__":
     app.run(debug=True)
